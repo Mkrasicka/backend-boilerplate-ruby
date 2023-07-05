@@ -1,4 +1,4 @@
-<%= simple_form_for([@account, @transaction]) do |f| %>
+<%= simple_form_for(@transaction_request) do |f| %>
   <%= f.input :account_id %>
   <%= f.input :amount %>
   <%= f.submit "Submit", class: "btn btn-primary" %>
