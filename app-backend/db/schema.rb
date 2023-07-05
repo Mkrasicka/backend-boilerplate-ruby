@@ -10,5 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 0) do
+ActiveRecord::Schema[7.0].define(version: 2023_07_05_154050) do
+# Could not dump table "accounts" because of following StandardError
+#   Unknown type 'uuid' for column 'id'
+
+# Could not dump table "transaction_requests" because of following StandardError
+#   Unknown type 'uuid' for column 'id'
+
+# Could not dump table "transactions" because of following StandardError
+#   Unknown type 'uuid' for column 'id'
+
+  add_foreign_key "transaction_requests", "accounts"
+  add_foreign_key "transactions", "accounts"
 end
