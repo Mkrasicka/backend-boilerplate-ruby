@@ -1,7 +1,22 @@
-<h1>Submit new transaction</h1>
-<p>render form for creating a transaction</p>
+<div class="container d-flex">
+  <div>
+    <h1>Submit new transaction</h1>
+    <%= render "transactions/new_transaction", locals: { account: @account, transaction: @transaction } %>
+  </div>
 
-<h1>Transaction history</h1>
-<% @transactions.each do |transaction| %>
-<%= transaction.amount %>
-<% end %>
+  <div>
+    <h1>Transaction history</h1>
+    <% unless @transactions.nil? %>
+        <% @transactions.each do |transaction| %>
+          <% if transaction.amount < 0 %>
+            <p>Transferred <%= transaction.amount %> from account <%= @account.id %> </p>
+            <p>The current account balance is <%= @account.balance %> </p>
+          <% elsif transaction.amount > 0 %>
+            <% @transactions.each do |transaction|  %>
+            <p>Transferred <%= transaction.amount %> to account <%= @account.id %> </p>
+          <% end %>
+        <% end %>
+      <% end %>
+    <% end %>
+  </div>
+</div>
