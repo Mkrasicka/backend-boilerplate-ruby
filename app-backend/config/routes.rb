@@ -4,6 +4,10 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   # root "articles#index"
   get '/ping', to: 'ping#show', format: :json, as: :ping
-  resources :transactions, only: [:index, :create, :show]
-  resources :accounts, only: [:show]
+  resources :accounts, only: [:show] do
+    resources :transactions, only: [:index, :create]
+  end
+
+  # post '/accounts/:id', to: 'transactions#create', as: :create_transaction
+  # get '/accounts/:id', to: 'transactions#index'
 end

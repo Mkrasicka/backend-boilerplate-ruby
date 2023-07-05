@@ -1,1 +1,5 @@
-<h1>Balance: <%= @account.balance %></h1>
+<div class="container">
+  <h1>Account id: <%= @account.id %> </h1>
+  <h1>Balance: <%= @account.balance %> </h1>
+  <%= link_to "Transactions",  account_transactions_path(@account) %>
+</div>
