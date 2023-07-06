@@ -13,7 +13,7 @@
             <p>The current account balance is <%= @account.balance %> </p>
           <% elsif transaction.amount > 0 %>
             <% @transactions.each do |transaction|  %>
-            <p>Transferred <%= transaction.amount %> to account <%= @account.id %> </p>
+            <p>Transferred <%= transaction.amount %> to account <%= transaction.account_id %> </p>
           <% end %>
         <% end %>
       <% end %>

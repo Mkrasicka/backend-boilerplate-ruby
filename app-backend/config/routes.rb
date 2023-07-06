@@ -7,7 +7,4 @@ Rails.application.routes.draw do
   resources :accounts, only: [:show] do
     resources :transactions, only: [:index, :create]
   end
-
-  # post '/accounts/:id', to: 'transactions#create', as: :create_transaction
-  # get '/accounts/:id', to: 'transactions#index'
 end
