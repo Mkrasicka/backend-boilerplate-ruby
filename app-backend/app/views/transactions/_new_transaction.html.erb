@@ -1,5 +1,17 @@
-<%= simple_form_for([@account, @transaction]) do |f| %>
+
+  <%= simple_form_for([@account, @transaction], data: { transaction_history_target: "form", action: "submit->transaction-history#send" }) do |f| %>
   <%= f.input :account_id, value: @account.id %>
   <%= f.input :amount %>
-  <%= f.submit "Submit", class: "btn btn-primary" %>
-<% end %>
+  <%= f.error_notification %>
+    <% if @transaction.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(@transaction.errors.count, "error") %> stopped this transaction from being saved:</h2>
+        <ul>
+          <% @transaction.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+  <%= f.submit "Submit", class: "btn btn-primary", "data-action" => "click->mark-transaction-complete#submitTransaction" %>
+  <% end %>

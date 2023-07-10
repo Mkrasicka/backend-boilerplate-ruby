@@ -14,12 +14,29 @@ class TransactionsController < ApplicationController
     @account = Account.find(params[:account_id])
     @transaction = Transaction.new(transaction_params)
     @transaction.account_id = params[:transaction][:account_id]
-    if @transaction.save
-      redirect_to account_transactions_path(@account), notice: 'Transaction created successfully.'
-    else
-      flash[:error] = @transaction.errors.full_messages.join(', ')
-      render :index
+
+    respond_to do |format|
+      if @transaction.valid?
+
+        if @account.balance >= @transaction.amount
+          @transaction.save
+          format.html {redirect_to account_transaction_path(@account, @transaction), notice: 'Transaction created successfully.'}
+          format.json { render json: @transaction }
+        else
+          format.html { @transaction.errors.add(:base, "Not enough money in your account") }
+          format.html {render :index, status: :unprocessable_entity }
+          format.json { render json: { error: "Not enough money in your account" }, status: :unprocessable_entity }
+        end
+      else
+        format.html {render :index, status: :unprocessable_entity}
+        format.json { render json: @transaction.errors, status: :unprocessable_entity }
+      end
     end
+  end
+
+  def show
+    @account = Account.find(params[:account_id])
+    @transaction = Transaction.find(params[:id])
   end
 
   private

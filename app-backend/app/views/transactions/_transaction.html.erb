@@ -1,0 +1,10 @@
+<% unless @transactions.nil? %>
+    <% @transactions.each do |transaction| %>
+      <% if transaction.amount < 0 %>
+        <p>Transferred <%= transaction.amount %> from account <%= @account.id %> </p>
+        <p>The current account balance is <%= @account.balance %> </p>
+      <% elsif transaction.amount > 0 %>
+        <p>Transferred <%= transaction.amount %> to account <%= transaction.account_id %> </p>
+    <% end %>
+  <% end %>
+<% end %>

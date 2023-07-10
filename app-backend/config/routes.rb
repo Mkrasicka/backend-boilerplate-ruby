@@ -5,6 +5,6 @@ Rails.application.routes.draw do
   # root "articles#index"
   get '/ping', to: 'ping#show', format: :json, as: :ping
   resources :accounts, only: [:show] do
-    resources :transactions, only: [:index, :create]
+    resources :transactions, only: [:index, :create, :show]
   end
 end

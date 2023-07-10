@@ -1,0 +1,7 @@
+<p style="color: green"> <%= notice %> </p>
+<div class="">
+  <p>Transaction id: <%= @transaction.id %></p>
+  <p>Send to: <%= @transaction.account_id %></p>
+  <p>Amount: <%= @transaction.amount %></p>
+  <%= link_to "Back to transactions", account_transactions_path(@account) %>
+</div>

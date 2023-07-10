@@ -1,22 +1,21 @@
 <div class="container d-flex">
-  <div>
-    <h1>Submit new transaction</h1>
-    <%= render "transactions/new_transaction", locals: { account: @account, transaction: @transaction } %>
-  </div>
-
-  <div>
-    <h1>Transaction history</h1>
-    <% unless @transactions.nil? %>
-        <% @transactions.each do |transaction| %>
-          <% if transaction.amount < 0 %>
-            <p>Transferred <%= transaction.amount %> from account <%= @account.id %> </p>
-            <p>The current account balance is <%= @account.balance %> </p>
-          <% elsif transaction.amount > 0 %>
-            <% @transactions.each do |transaction|  %>
-            <p>Transferred <%= transaction.amount %> to account <%= transaction.account_id %> </p>
-          <% end %>
-        <% end %>
-      <% end %>
-    <% end %>
+  <div class="row">
+    <div class="col">
+      <div data-controller="transaction-history">
+        <div data-controller="toggle">
+          <h1>Submit new transaction</h1>
+          <button class="btn btn-primary mt-4" data-action="click->toggle#fire">Add new transaction</button>
+          <div class="mt-3 d-none" data-toggle-target="toggleableElement">
+            <%= render "transactions/new_transaction", locals: { account: @account, transaction: @transaction } %>
+          </div>
+        </div>
+        <div>
+          <h1>Transaction history</h1>
+          <div data-transaction-history-target="item">
+            <%= render "transactions/transaction", locals: { account: @account, transaction: @transaction } %>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
