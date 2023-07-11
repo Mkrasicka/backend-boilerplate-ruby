@@ -8,10 +8,8 @@ class TransactionsController < ApplicationController
   end
 
   def create
-
     @transaction = Transaction.new(transaction_params)
     @transaction.account_id = params[:transaction][:account_id]
-
     if @transaction.valid?
       if @account.balance >= @transaction.amount
         @transaction.save
@@ -35,7 +33,6 @@ class TransactionsController < ApplicationController
   end
 
   def show
-
     @transaction = Transaction.find(params[:id])
   end
 
